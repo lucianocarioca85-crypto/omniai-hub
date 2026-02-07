@@ -1,32 +1,173 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Omni AI Hub</title>
-  <style>
-    body {
-      background: #f4f4f4;
-      font-family: Arial, sans-serif;
-      color: #111;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .box {
-      background: white;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-  </style>
+<meta charset="UTF-8" />
+<title>Omni AI Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<style>
+:root {
+  --bg: #0b0f1a;
+  --card: #11162a;
+  --primary: #00f7ff;
+  --text: #eaeaf0;
+  --muted: #9aa4bf;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #0f1b3d, #05070f);
+  color: var(--text);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app {
+  width: 100%;
+  max-width: 420px;
+  height: 90vh;
+  background: var(--card);
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(0, 247, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+  padding: 16px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--primary);
+}
+
+.header p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.chat {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.msg {
+  margin-bottom: 12px;
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.user {
+  background: var(--primary);
+  color: #000;
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+}
+
+.bot {
+  background: #1a2140;
+  color: var(--text);
+  border-bottom-left-radius: 4px;
+}
+
+.input-area {
+  display: flex;
+  padding: 12px;
+  gap: 8px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: #0d1225;
+  color: var(--text);
+}
+
+button {
+  background: var(--primary);
+  border: none;
+  border-radius: 10px;
+  padding: 0 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+</style>
 </head>
+
 <body>
-  <div class="box">
-    <h1>🚀 Omni AI Hub</h1>
-    <p>Se você está vendo isso, o site está funcionando perfeitamente.</p>
+<div class="app">
+  <div class="header">
+    <h1>Omni AI Hub</h1>
+    <p>Seu assistente inteligente</p>
   </div>
+
+  <div class="chat" id="chat">
+    <div class="msg bot">
+      Olá 👋 Eu sou a Omni AI. Como posso te ajudar hoje?
+    </div>
+  </div>
+
+  <div class="input-area">
+    <input id="input" type="text" placeholder="Digite sua pergunta..." />
+    <button onclick="send()">Enviar</button>
+  </div>
+</div>
+
+<script>
+function send() {
+  const input = document.getElementById("input");
+  const chat = document.getElementById("chat");
+  const text = input.value.trim();
+
+  if (!text) return;
+
+  // mensagem do usuário
+  const userMsg = document.createElement("div");
+  userMsg.className = "msg user";
+  userMsg.innerText = text;
+  chat.appendChild(userMsg);
+
+  input.value = "";
+  chat.scrollTop = chat.scrollHeight;
+
+  // resposta simulada da IA
+  setTimeout(() => {
+    const botMsg = document.createElement("div");
+    botMsg.className = "msg bot";
+    botMsg.innerText =
+      "🤖 (IA) Estou processando sua mensagem: \"" +
+      text +
+      "\".\nEm breve estarei conectada a uma IA real 🚀";
+    chat.appendChild(botMsg);
+    chat.scrollTop = chat.scrollHeight;
+  }, 800);
+}
+</script>
 </body>
 </html>
+
